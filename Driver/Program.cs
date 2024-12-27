@@ -26,6 +26,7 @@ namespace AppliedHyperkinetics.Qif.Driver
             bool showSecurityTotals = false;
             bool showIndividualTransactions = false;
             bool generateIncomeQifFile = false;
+            bool mapAssetNames = false;
 
             if (args.Length == 0 || args[0] == "-h" || args[0] == "/?")
             {
@@ -41,6 +42,7 @@ namespace AppliedHyperkinetics.Qif.Driver
                 if (args[i] == "-s") showSecurityTotals = true;
                 if (args[i] == "-i") showIndividualTransactions = true;
                 if (args[i] == "-q") generateIncomeQifFile = true;
+                if (args[i] == "-map") mapAssetNames = true;
             }
 
             var qifDoc = QifDom.ImportFile(importFD);
@@ -53,6 +55,8 @@ namespace AppliedHyperkinetics.Qif.Driver
                 showSecurityTotals,
                 showIndividualTransactions);
             reporter.Generate();
+
+
 
             if (generateIncomeQifFile)
             {
@@ -74,9 +78,20 @@ namespace AppliedHyperkinetics.Qif.Driver
                 Console.WriteLine($"Converting Mkt value change to SharesIn");
                 var sharesInDoc = qifGenerator.ConvertMktValueChangeToSharesIn(reinvDivDoc);
 
+                if (mapAssetNames)
+                {
+                    // remap funky Fidelity asset names to match Quicken downloaded asset names
+                    // TODO: read map from config and make this optional
+                    var nameMapper = new AssetNameTranslator();
+                    sharesInDoc = nameMapper.MapFidelityAssetNamesToDownloadedNames(sharesInDoc);
+                }
+
                 Console.WriteLine($"Writing generated DivInc qif file to {outFD}");
                 sharesInDoc.Export(outFD);
             }
+
+           
+
             Console.WriteLine("==================================================");
             Console.WriteLine();
             return 0;
@@ -85,12 +100,13 @@ namespace AppliedHyperkinetics.Qif.Driver
         public static void Usage()
         {
             Console.WriteLine("Usage:");
-            Console.WriteLine("QifDividendFix {fileDescriptor} [-s] [-m] [-i]");
+            Console.WriteLine("FidelityQifFix {fileDescriptor} [-s] [-m] [-i] [-map]");
             Console.WriteLine("\t{fileDescriptor} must be a single file");
             Console.WriteLine("\t-s displays per security totals for the run");
             Console.WriteLine("\t-m displays per month totals for the run");
             Console.WriteLine("\t-i displays details of each processed transaction");
             Console.WriteLine("\t-q generates a new QIF file with dividend Actions transformed from Buy -> ReinvDiv and market value change transactions from null action -> SharesIn");
+            Console.WriteLine("\t-map maps Fidelity asset names to names as downloaded by Quicken. Uses a compiled map and may not be complete.");
         }
     }
 }

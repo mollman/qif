@@ -2,7 +2,7 @@
   "profiles": {
     "Driver": {
       "commandName": "Project",
-      "commandLineArgs": "\"R:\\Downloads\\john 401k july 2020.qif\" -m -s -i -q"
+      "commandLineArgs": "'R:\\Quicken\\QifImports\\john 401k 2024 q3 transaction history.qif' -m -s -i -q -map'"
     }
   }
 }
