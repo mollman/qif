@@ -25,7 +25,9 @@ namespace AppliedHyperkinetics.Qif.Driver
             // John's 401k assets
             { "VANG RUS 1000 VAL TR(OAMP)", "Vanguard Russell 1000 Value Index Fund Institutional Shares" },
             { "VANG 500 IDX IS SEL(OQZ1)", "Vanguard 500 Index Institutional Select Shares" },
-            { "INTL VALUE ACCOUNT(TP12)", "International Value Fund" }
+            { "INTL VALUE ACCOUNT(TP12)", "International Value Fund" },
+            // new asset names (exchange xfers q4 2024)? 
+            { "YVAN IS S&P500 IDX TR(ODDC)", "Vanguard 500 Index Institutional Select Shares"}
         };
 
         /// <summary>
