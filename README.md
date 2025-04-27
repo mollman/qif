@@ -1,4 +1,22 @@
 # qif
+
+Specialized fork implementing a driver application and modifications supporting translation of the incorrect values Fidelity provides in QIF files downloaded from Fidelity NetBenefits.  
+
+## Usage ##
+Compile the project and run the FidelityQifFix console application for current usage
+
+Usage:
+
+`FidelityQifFix {fileDescriptor} [-s] [-m] [-i] [-q] [-map]`
+
+- {fileDescriptor} must be a single file 
+- -s displays per security totals for the run
+- -m displays per month totals for the run
+- -i displays details of each processed transaction
+- -q generates a new QIF file with dividend Actions transformed from Buy -> ReinvDiv and market value change transactions from null action -> SharesIn
+- -map maps Fidelity asset names to names as downloaded by Quicken. Uses a compiled map and may not be complete.
+
+## Original Description ##
 Fork of the robaker/qif utility project (itself a fork of MisterY/qif) for creating and consuming *.qif files that targets netstandard2.1.
 
 This solution includes a driver console app that implements some transformations that I wanted to fix broken Fidelity netbenefits QIF exports that Quicken couldn't handle correctly. 
