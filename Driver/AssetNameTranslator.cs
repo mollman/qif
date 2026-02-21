@@ -1,8 +1,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
 using QifApi;
 using QifApi.Transactions;
 
@@ -13,7 +11,7 @@ namespace AppliedHyperkinetics.Qif.Driver
     /// </summary>
     /// <remarks>
     /// Fidelity uses some funky asset names that don't match those downloaded by Quicken if you have a ticker symbol for them. 
-    /// This class is specialized to map the assets we have. A more general 
+    /// This class is specialized to map the assets we have. 
     /// </remarks>
     public class AssetNameTranslator
     {
@@ -27,7 +25,9 @@ namespace AppliedHyperkinetics.Qif.Driver
             { "VANG 500 IDX IS SEL(OQZ1)", "Vanguard 500 Index Institutional Select Shares" },
             { "INTL VALUE ACCOUNT(TP12)", "International Value Fund" },
             // new asset names (exchange xfers q4 2024)? 
-            { "YVAN IS S&P500 IDX TR(ODDC)", "Vanguard 500 Index Institutional Select Shares"}
+            { "VAN IS S&P500 IDX TR(ODDC)", "Vanguard 500 Index Institutional Select Shares" },
+            // new Q4 2025
+            { "VANG 500 INDEX TRUST(PH2N)", "Vanguard Institutional 500 Index Trust" }
         };
 
         /// <summary>
